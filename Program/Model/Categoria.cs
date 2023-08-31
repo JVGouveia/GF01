@@ -1,39 +1,51 @@
-﻿namespace Program;
+﻿using System;
 
-public class Categoria
+namespace Program.Model
 {
-    private string _nome;
-    private string _descricao;
-
-    public Categoria(string nome, string descricao)
+    public class Categoria
     {
-        _nome = nome;
-        _descricao = descricao;
-        
-    }
+        private static int proximoId = 1;
+        private int id;
+        private string _nome;
+        private string _descricao;
 
-    //getters and setters
-
-    public string Nome
-    {
-        get {return _nome;}
-        set
+        public Categoria(string nome, string descricao)
         {
-            if(value.Length > 0)
+            id = proximoId++;
+            if (!string.IsNullOrEmpty(nome))
+                    _nome = nome;
+                else
+                    throw new ArgumentException("Nome não pode ser nulo.");
+            _descricao = descricao;
+
+        }
+
+        //getters and setters
+
+        public int Id
+        {
+            get { return id; }
+        }
+        public string Nome
+        {
+            get { return _nome; }
+            set
             {
-                _nome = value;
-            }
-            else 
-            {
-                throw new ArgumentException("Nome não pode ser nulo.");
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _nome = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Nome não pode ser nulo.");
+                }
             }
         }
-    }
 
-    public string Descricao
-    {
-        get {return _descricao;}
-        set{_descricao = value;}
+        public string Descricao
+        {
+            get { return _descricao; }
+            set { _descricao = value; }
+        }
     }
-
 }
